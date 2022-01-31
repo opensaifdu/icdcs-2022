@@ -1,0 +1,116 @@
+// Copyright 2015 gRPC authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.helloworld";
+option java_outer_classname = "HelloWorldProto";
+option objc_class_prefix = "HLW";
+
+package helloworld;
+
+// The greeting service definition.
+service Greeter {
+  rpc PushObject(PushObjRequest) returns (PushObjReply) {}
+  rpc PushResult(PushResultRequest) returns (PushResultReply) {}
+  rpc VehicleReport(VehicleReportRequest) returns (VehicleReportReply) {} 
+  rpc ServerReport(ServerReportRequest) returns (ServerReportReply) {}
+  rpc RealTimeInfo(InfoRequest) returns (InfoReply) {}
+  rpc UploadAndRequestInfo(TaskRequest) returns (TaskReply) {}
+  rpc GetFutureServer(FutureServerRequest) returns (FutureServerReply) {}
+}
+
+message VehicleReportRequest {
+  string node_id = 1;
+  float current_lat = 2;
+  float current_long = 3;
+  uint32 trace_index = 4;
+}
+
+message VehicleReportReply {
+  float average_queue_time = 1;
+  float sojourn_time = 2;
+}
+
+message ServerReportRequest {
+  string node_id = 1;
+  float local_queue_time = 2;
+}
+
+message ServerReportReply {
+  bytes queue_time_list = 1;
+  bytes current_server_id = 2;
+  bytes sojourn_time = 3;
+  bytes next_server_id = 4;
+  bytes vehicle_lat = 5;
+  bytes vehicle_long = 6;
+}
+
+message PushObjRequest {
+  string task_id = 1;
+  string object_id = 2;
+  string node_id = 3;
+  uint32 chunk_index = 5;
+  uint32 chunk_num = 6;
+  bytes data = 7;
+  float deadline = 8;
+  float start_time = 9;
+  float data_size  = 10;
+  float result_size = 11;
+  float workload = 12;
+  string vehicle_src_id = 13;
+}
+
+message PushObjReply {
+  string message = 1;
+}
+
+message PushResultRequest{
+  string task_id = 1;
+  string vehicle_src_id = 2;
+  bytes result = 3;
+  string local_server_id = 4;
+}
+
+message PushResultReply{
+  string message = 1;
+}
+
+message TaskRequest{
+  string type = 1;
+  string task_id = 2;
+  string node_id = 3;
+}
+
+message TaskReply{
+  string node_id = 1;
+}
+
+message InfoRequest{
+  string message = 1;
+}
+
+message InfoReply{
+  float local_queue_time = 1;
+}
+
+message FutureServerRequest{
+    string vehicle_id = 1;
+    float remain_time = 2;
+}
+
+message FutureServerReply{
+    string future_server = 1;
+}
