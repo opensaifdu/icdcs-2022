@@ -19,4 +19,4 @@ uuid`
 
 **cluster_config.py -** includes the configurations of each node in our proposed platform. 
 
-**helloworld.proto -** defines the communication formats in system.
+**protos/helloworld.proto -** defines the communication formats in system.
